@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StayNest – Find Your Space. Feel At Home. | Premium Student Room Booking</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="StayNest is India's premier student accommodation platform connecting college students with verified hostels, PGs, shared rooms, and private apartments with zero brokerage.">
+  <meta name="keywords" content="student housing, PG near college, student hostel booking, shared room, private student room, zero brokerage PG, Delhi University PG, IIT accommodation">
+  <meta property="og:title" content="StayNest – Premium Student Room Booking Platform">
+  <meta property="og:description" content="Discover affordable, comfortable, and 100% verified student accommodations near your campus.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#101D35">
+
+  <!-- Google Fonts (Plus Jakarta Sans & Outfit) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+  <!-- Main Header & Navigation -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-container">
+      
+      <!-- Logo -->
+      <a href="#" class="brand-logo" onclick="navigateTo('home')">
+        <div class="logo-icon-wrapper">
+          <i class="fa-solid fa-house-chimney-window"></i>
+          <span class="logo-sparkle"><i class="fa-solid fa-sparkles"></i></span>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">StayNest</span>
+          <span class="logo-tag">STUDENT LIVING</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="desktop-nav">
+        <a href="#hero" class="nav-link active" onclick="navigateTo('home')">Home</a>
+        <a href="#explore" class="nav-link" onclick="navigateTo('explore')">Explore Rooms</a>
+        <a href="#categories" class="nav-link" onclick="navigateTo('categories')">Categories</a>
+        <a href="#about" class="nav-link" onclick="navigateTo('about')">About</a>
+        <a href="#host" class="nav-link host-badge-link" onclick="handleHostPropertyClick()">
+          <i class="fa-solid fa-plus-circle"></i> Host Your Property
+        </a>
+      </nav>
+
+      <!-- Action Items & Auth Controls -->
+      <div class="header-actions">
+        
+        <!-- Theme Toggle (Dark/Light) -->
+        <button class="icon-btn theme-toggle" id="themeToggleBtn" aria-label="Toggle Theme" onclick="toggleTheme()">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+
+        <!-- Wishlist Button -->
+        <button class="icon-btn wishlist-icon-btn" onclick="openWishlistDrawer()" aria-label="View Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="badge" id="wishlistCountBadge">0</span>
+        </button>
+
+        <!-- Notification & Alert Center Bell -->
+        <button class="icon-btn notif-icon-btn" onclick="openNotificationDrawer()" aria-label="Notifications & WhatsApp Alerts">
+          <i class="fa-brands fa-whatsapp text-success"></i>
+          <span class="badge notif-ping" id="headerNotifBadge">0</span>
+        </button>
+
+        <!-- Logged Out Auth Buttons -->
+        <div class="auth-buttons" id="loggedOutButtons">
+          <button class="btn btn-outline" onclick="openAuthModal('login')">Log In</button>
+          <button class="btn btn-primary" onclick="openAuthModal('signup')">Sign Up</button>
+        </div>
+
+        <!-- Logged In User Dropdown -->
+        <div class="user-menu-wrapper hidden" id="loggedInMenu">
+          <button class="user-profile-btn" onclick="toggleUserDropdown()" id="userDropdownTrigger">
+            <div class="avatar-badge" id="userAvatar">RS</div>
+            <div class="user-meta">
+              <span class="user-display-name" id="userNameLabel">Rohan Sharma</span>
+              <span class="user-role-badge" id="userRoleBadge">Student</span>
+            </div>
+            <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+          </button>
+
+          <!-- Dropdown Popup -->
+          <div class="user-dropdown-menu" id="userDropdownMenu">
+            <div class="dropdown-header">
+              <p class="dropdown-user-name" id="dropdownUserName">Rohan Sharma</p>
+              <p class="dropdown-user-email" id="dropdownUserEmail">rohan.student@staynest.com</p>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="openDashboardView()">
+              <i class="fa-solid fa-gauge-high"></i> Dashboard
+            </a>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="openStudentTab('bookings')">
+              <i class="fa-solid fa-calendar-check"></i> My Bookings
+            </a>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="openWishlistDrawer()">
+              <i class="fa-solid fa-heart"></i> Saved Properties
+            </a>
+            <a href="javascript:void(0)" class="dropdown-item" onclick="openNotificationDrawer()">
+              <i class="fa-brands fa-whatsapp text-success"></i> WhatsApp & Email Receipts
+            </a>
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item text-danger" onclick="handleLogout()">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileNav()" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+      <div class="mobile-nav-header">
+        <span class="brand-logo">StayNest</span>
+        <button class="close-drawer-btn" onclick="toggleMobileNav()">&times;</button>
+      </div>
+      <div class="mobile-nav-links">
+        <a href="#hero" onclick="navigateTo('home'); toggleMobileNav();">Home</a>
+        <a href="#explore" onclick="navigateTo('explore'); toggleMobileNav();">Explore Rooms</a>
+        <a href="#categories" onclick="navigateTo('categories'); toggleMobileNav();">Accommodation Categories</a>
+        <a href="#about" onclick="navigateTo('about'); toggleMobileNav();">About StayNest</a>
+        <a href="#host" onclick="handleHostPropertyClick(); toggleMobileNav();">Host Your Property</a>
+      </div>
+      <div class="mobile-auth-actions" id="mobileAuthActions">
+        <button class="btn btn-outline w-100 mb-2" onclick="openAuthModal('login'); toggleMobileNav();">Log In</button>
+        <button class="btn btn-primary w-100" onclick="openAuthModal('signup'); toggleMobileNav();">Sign Up</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main App Content Container -->
+  <main class="main-content" id="mainContent">
+
+    <!-- VIEW 1: HOME / LANDING PAGE -->
+    <section class="page-view active" id="view-home">
+      
+      <!-- HERO SECTION -->
+      <section class="hero-section" id="hero">
+        <div class="hero-bg-shapes">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+        </div>
+
+        <div class="hero-container">
+          
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span class="sparkle-icon">✨</span>
+              <span>India's #1 Student Living Platform • Zero Brokerage • Verified Stays</span>
+            </div>
+
+            <h1 class="hero-title">
+              Find Your Perfect <br>
+              <span class="gradient-text">Student Stay</span>
+            </h1>
+
+            <p class="hero-subtitle">
+              Discover affordable, comfortable, and verified student accommodations near your college.
+              High-speed Wi-Fi, hygienic meals, biometric safety, and student-friendly housemates guaranteed.
+            </p>
+
+            <div class="trust-features-row">
+              <div class="trust-pill"><i class="fa-solid fa-shield-check text-accent"></i> 100% In-Person Verified</div>
+              <div class="trust-pill"><i class="fa-solid fa-bolt text-accent"></i> Instant Online Booking & Pay</div>
+              <div class="trust-pill"><i class="fa-solid fa-utensils text-accent"></i> Home-Style Food</div>
+              <div class="trust-pill"><i class="fa-solid fa-wifi text-accent"></i> 150+ Mbps Fiber Wi-Fi</div>
+            </div>
+          </div>
+
+          <!-- Modern Search Bar Interface -->
+          <div class="hero-search-wrapper">
+            <div class="search-tabs">
+              <button class="search-tab active" data-type="all" onclick="setSearchCategory('all', this)">
+                <i class="fa-solid fa-border-all"></i> All Stays
+              </button>
+              <button class="search-tab" data-type="Hostel" onclick="setSearchCategory('Hostel', this)">
+                <i class="fa-solid fa-hotel"></i> Hostels
+              </button>
+              <button class="search-tab" data-type="PG" onclick="setSearchCategory('PG', this)">
+                <i class="fa-solid fa-bed"></i> PG / Co-living
+              </button>
+              <button class="search-tab" data-type="Apartment" onclick="setSearchCategory('Apartment', this)">
+                <i class="fa-solid fa-city"></i> Apartments
+              </button>
+              <button class="search-tab" data-type="Shared" onclick="setSearchCategory('Shared', this)">
+                <i class="fa-solid fa-people-roof"></i> Shared Rooms
+              </button>
+              <button class="search-tab" data-type="Private" onclick="setSearchCategory('Private', this)">
+                <i class="fa-solid fa-door-closed"></i> Private Rooms
+              </button>
+            </div>
+
+            <div class="search-bar-form">
+              
+              <!-- Location / City -->
+              <div class="search-input-group">
+                <label><i class="fa-solid fa-location-dot"></i> City or Locality</label>
+                <div class="input-with-icon">
+                  <input type="text" id="heroSearchLocation" placeholder="e.g. North Campus, Koramangala, Powai" list="citySuggestions">
+                  <datalist id="citySuggestions">
+                    <option value="North Campus, Delhi"></option>
+                    <option value="South Campus, Delhi"></option>
+                    <option value="Koramangala, Bangalore"></option>
+                    <option value="HSR Layout, Bangalore"></option>
+                    <option value="Electronic City, Bangalore"></option>
+                    <option value="Powai, Mumbai"></option>
+                    <option value="Vile Parle, Mumbai"></option>
+                    <option value="Kothrud, Pune"></option>
+                    <option value="Viman Nagar, Pune"></option>
+                    <option value="Gachibowli, Hyderabad"></option>
+                    <option value="Rajeev Gandhi Nagar, Kota"></option>
+                    <option value="Sector 62, Noida"></option>
+                    <option value="Adyar, Chennai"></option>
+                  </datalist>
+                </div>
+              </div>
+
+              <!-- College Proximity -->
+              <div class="search-input-group">
+                <label><i class="fa-solid fa-graduation-cap"></i> Nearby College</label>
+                <div class="input-with-icon">
+                  <select id="heroSearchCollege">
+                    <option value="">Any College / University</option>
+                    <option value="Delhi University">Delhi University (DU North / South)</option>
+                    <option value="IIT">IITs (Delhi / Bombay / Hyderabad)</option>
+                    <option value="Christ University">Christ University Bangalore</option>
+                    <option value="Symbiosis">Symbiosis International Pune</option>
+                    <option value="NMIMS">NMIMS Mumbai</option>
+                    <option value="VIT">VIT Vellore / Chennai</option>
+                    <option value="BITS Pilani">BITS Pilani</option>
+                    <option value="Allen / Kota">Kota Coaching Hub (Allen/Resonance)</option>
+                    <option value="Amity">Amity University Noida</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Check-In Date -->
+              <div class="search-input-group">
+                <label><i class="fa-solid fa-calendar-days"></i> Move-In Date</label>
+                <div class="input-with-icon">
+                  <input type="date" id="heroSearchDate">
+                </div>
+              </div>
+
+              <!-- Monthly Budget -->
+              <div class="search-input-group">
+                <label><i class="fa-solid fa-indian-rupee-sign"></i> Max Budget</label>
+                <div class="input-with-icon">
+                  <select id="heroSearchBudget">
+                    <option value="">Any Budget</option>
+                    <option value="7000">Under ₹7,000 / mo</option>
+                    <option value="10000">Under ₹10,000 / mo</option>
+                    <option value="15000">Under ₹15,000 / mo</option>
+                    <option value="20000">Under ₹20,000 / mo</option>
+                    <option value="35000">Premium (₹20k - ₹35k+)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Search CTA Button -->
+              <div class="search-btn-group">
+                <button class="btn btn-search" id="heroSearchBtn" onclick="handleHeroSearch()">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <span>Find Rooms</span>
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Quick Popular Searches -->
+            <div class="quick-tags-row">
+              <span class="quick-title">Quick filters:</span>
+              <button class="tag-chip" onclick="applyQuickFilter('North Campus')">DU North Campus</button>
+              <button class="tag-chip" onclick="applyQuickFilter('Koramangala')">Bangalore Koramangala</button>
+              <button class="tag-chip" onclick="applyQuickFilter('Girls Only')">Girls Only Hostels</button>
+              <button class="tag-chip" onclick="applyQuickFilter('Single Private')">Single Private Rooms</button>
+              <button class="tag-chip" onclick="applyQuickFilter('Food')">3 Meals Included</button>
+              <button class="tag-chip" onclick="applyQuickFilter('Powai')">IIT Bombay / Powai</button>
+              <button class="tag-chip" onclick="applyQuickFilter('Kota')">Kota Coaching Hub</button>
+            </div>
+          </div>
+
+          <!-- Hero Metrics Floater -->
+          <div class="hero-stats-grid">
+            <div class="stat-card">
+              <span class="stat-number">18,500+</span>
+              <span class="stat-label">Verified Beds</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">65+</span>
+              <span class="stat-label">Partner Universities</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">₹0</span>
+              <span class="stat-label">Brokerage Fee</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">4.9/5</span>
+              <span class="stat-label">Student Satisfaction</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ACCOMMODATION CATEGORIES SECTION -->
+      <section class="categories-section" id="categories">
+        <div class="section-container">
+          <div class="section-header text-center">
+            <span class="section-tag">CURATED STYLES</span>
+            <h2 class="section-title">Explore by Accommodation Category</h2>
+            <p class="section-desc">Tailored student living choices for every lifestyle, study routine, and budget across India.</p>
+          </div>
+
+          <div class="categories-grid" id="categoriesGrid">
+            <!-- Rendered dynamically via JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED ROOMS & DIRECT ACCESS PREVIEW -->
+      <section class="featured-section" id="featuredSection">
+        <div class="section-container">
+          <div class="section-header-flex">
+            <div>
+              <span class="section-tag">TOP RATED ACROSS INDIA</span>
+              <h2 class="section-title">Trending Accommodations Near Top Campuses</h2>
+              <p class="section-desc">Handpicked student residencies with top hygiene, Wi-Fi, and 24/7 security ratings.</p>
+            </div>
+            <button class="btn btn-outline" onclick="navigateTo('explore')">
+              View All 16+ Listings <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Featured Grid -->
+          <div class="properties-grid" id="featuredPropertiesGrid">
+            <!-- Dynamic cards injected via script.js -->
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY STAYNEST VALUE PROPOSITION -->
+      <section class="why-us-section" id="about">
+        <div class="section-container">
+          <div class="section-header text-center">
+            <span class="section-tag">WHY STUDENTS LOVE US</span>
+            <h2 class="section-title">Designed for Students, Trusted by Parents</h2>
+            <p class="section-desc">We bridge the gap between quality accommodations and peace of mind.</p>
+          </div>
+
+          <div class="features-columns">
+            <div class="feature-box">
+              <div class="feature-icon"><i class="fa-solid fa-badge-check"></i></div>
+              <h3>100% In-Person Verified</h3>
+              <p>Every hostel, PG, and room is visited and audited for security, hygiene, water supply, and verified landlords.</p>
+            </div>
+            <div class="feature-box">
+              <div class="feature-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+              <h3>Zero Brokerage, Ever</h3>
+              <p>Direct bookings connect you directly with hostel owners and landlords. Save ₹10,000–₹25,000 on middlemen.</p>
+            </div>
+            <div class="feature-box">
+              <div class="feature-icon"><i class="fa-brands fa-whatsapp"></i></div>
+              <h3>Instant WhatsApp Alerts</h3>
+              <p>Get automated WhatsApp confirmations, receipts, and host contact coordinates the second your booking is approved.</p>
+            </div>
+            <div class="feature-box">
+              <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+              <h3>Secure Payment Protection</h3>
+              <p>Integrated UPI, Credit/Debit Card, and Net Banking payment gateways ensure instant verified transactions and receipts.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RECENTLY VIEWED SECTION -->
+      <section class="recently-viewed-section hidden" id="recentlyViewedSection">
+        <div class="section-container">
+          <div class="section-header">
+            <span class="section-tag">YOUR HISTORY</span>
+            <h2 class="section-title">Recently Viewed Rooms</h2>
+          </div>
+          <div class="properties-grid" id="recentlyViewedGrid"></div>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- VIEW 2: EXPLORE ROOMS & ADVANCED FILTERS -->
+    <section class="page-view" id="view-explore">
+      <div class="explore-layout-container">
+        
+        <!-- Sidebar Advanced Filters -->
+        <aside class="filters-sidebar" id="filtersSidebar">
+          <div class="filters-header">
+            <div class="filter-title-group">
+              <i class="fa-solid fa-sliders"></i>
+              <h3>Filters</h3>
+            </div>
+            <button class="btn-text-clear" onclick="resetAllFilters()">Reset All</button>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Search Keyword / Landmark</label>
+            <div class="filter-input-wrap">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="filterKeyword" placeholder="e.g. DU, AC, Balcony, Kota" oninput="applyFilters()">
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Accommodation Category</label>
+            <select id="filterCategory" class="filter-select" onchange="applyFilters()">
+              <option value="all">All Categories</option>
+              <option value="Hostel">Hostel</option>
+              <option value="PG">Paying Guest (PG)</option>
+              <option value="Shared">Shared Room</option>
+              <option value="Private">Private Room</option>
+              <option value="Apartment">Apartment</option>
+              <option value="Villa">Student Villa</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Gender Restriction</label>
+            <div class="filter-pill-selector">
+              <button class="pill-option active" data-gender="all" onclick="selectGenderFilter('all', this)">All</button>
+              <button class="pill-option" data-gender="Co-ed / Unisex" onclick="selectGenderFilter('Co-ed / Unisex', this)">Co-ed</button>
+              <button class="pill-option" data-gender="Girls Only" onclick="selectGenderFilter('Girls Only', this)">Girls</button>
+              <button class="pill-option" data-gender="Boys Only" onclick="selectGenderFilter('Boys Only', this)">Boys</button>
+            </div>
+          </div>
+
+          <!-- Price Range Slider -->
+          <div class="filter-group">
+            <div class="slider-label-row">
+              <label class="filter-label">Monthly Rent Limit</label>
+              <span class="slider-value" id="priceDisplay">Up to ₹35,000</span>
+            </div>
+            <input type="range" id="filterPriceRange" min="5000" max="35000" step="500" value="35000" class="custom-slider" oninput="updatePriceSlider(this.value)">
+            <div class="slider-hints">
+              <span>₹5,000</span>
+              <span>₹20,000</span>
+              <span>₹35,000+</span>
+            </div>
+          </div>
+
+          <!-- Nearby College Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Target College / Hub</label>
+            <select id="filterCollege" class="filter-select" onchange="applyFilters()">
+              <option value="all">All Campuses</option>
+              <option value="Delhi University">Delhi University (DU)</option>
+              <option value="IIT">IITs (Delhi / Bombay / Hyderabad)</option>
+              <option value="Christ University">Christ University Bangalore</option>
+              <option value="Symbiosis">Symbiosis Pune</option>
+              <option value="NMIMS">NMIMS Mumbai</option>
+              <option value="VIT">VIT Vellore / Chennai</option>
+              <option value="BITS Pilani">BITS Pilani</option>
+              <option value="Allen / Kota">Kota Coaching Hub</option>
+              <option value="Amity">Amity University Noida</option>
+            </select>
+          </div>
+
+          <!-- Amenities Checklist -->
+          <div class="filter-group">
+            <label class="filter-label">Must-Have Amenities</label>
+            <div class="checkbox-list">
+              <label class="custom-checkbox">
+                <input type="checkbox" value="AC" id="amenityAC" onchange="applyFilters()">
+                <span class="checkmark"></span>
+                <span>Air Conditioner (AC)</span>
+              </label>
+              <label class="custom-checkbox">
+                <input type="checkbox" value="Food" id="amenityFood" onchange="applyFilters()">
+                <span class="checkmark"></span>
+                <span>Meals / Mess Included</span>
+              </label>
+              <label class="custom-checkbox">
+                <input type="checkbox" value="Attached Bath" id="amenityBath" onchange="applyFilters()">
+                <span class="checkmark"></span>
+                <span>Attached Washroom</span>
+              </label>
+              <label class="custom-checkbox">
+                <input type="checkbox" value="WiFi" id="amenityWifi" onchange="applyFilters()">
+                <span class="checkmark"></span>
+                <span>High-Speed Wi-Fi</span>
+              </label>
+              <label class="custom-checkbox">
+                <input type="checkbox" value="Laundry" id="amenityLaundry" onchange="applyFilters()">
+                <span class="checkmark"></span>
+                <span>Laundry Service</span>
+              </label>
+              <label class="custom-checkbox">
+                <input type="checkbox" value="Power Backup" id="amenityBackup" onchange="applyFilters()">
+                <span class="checkmark"></span>
+                <span>24/7 Power Backup</span>
+              </label>
+              <label class="custom-checkbox">
+                <input type="checkbox" value="CCTV" id="amenityCCTV" onchange="applyFilters()">
+                <span class="checkmark"></span>
+                <span>Biometric / CCTV Security</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Rating Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Minimum Rating</label>
+            <div class="rating-filter-pills">
+              <button class="rating-pill active" data-rating="0" onclick="selectRatingFilter(0, this)">Any</button>
+              <button class="rating-pill" data-rating="4.0" onclick="selectRatingFilter(4.0, this)">4.0+ ★</button>
+              <button class="rating-pill" data-rating="4.5" onclick="selectRatingFilter(4.5, this)">4.5+ ★</button>
+            </div>
+          </div>
+
+        </aside>
+
+        <!-- Main Listings Content -->
+        <div class="listings-main-area">
+          
+          <!-- Top Sort & Status Bar -->
+          <div class="listings-top-bar">
+            <div class="listings-count-info">
+              <h2 class="listings-heading">Verified Student Rooms & Residencies</h2>
+              <span class="listings-badge" id="resultsCountBadge">Loading stays...</span>
+            </div>
+
+            <div class="listings-controls">
+              <!-- Mobile Filter Trigger -->
+              <button class="btn btn-outline mobile-filter-btn" onclick="toggleMobileFilters()">
+                <i class="fa-solid fa-sliders"></i> Filters
+              </button>
+
+              <!-- Sorting Selector -->
+              <div class="sort-selector">
+                <label for="sortDropdown"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort by:</label>
+                <select id="sortDropdown" onchange="applySorting(this.value)">
+                  <option value="featured">Recommended & Popular</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="rating">Highest Rated (★ 5.0)</option>
+                  <option value="newest">Recently Added</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Filter Tags Row -->
+          <div class="active-filter-chips" id="activeFilterChips"></div>
+
+          <!-- Properties Grid -->
+          <div class="properties-grid" id="explorePropertiesGrid">
+            <!-- Property cards rendered dynamically -->
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state-card hidden" id="noResultsState">
+            <div class="empty-icon"><i class="fa-solid fa-bed-empty"></i></div>
+            <h3>No Accommodations Match Your Filters</h3>
+            <p>Try broadening your rent range or unchecking specific amenities to discover more student rooms.</p>
+            <button class="btn btn-primary" onclick="resetAllFilters()">Reset All Filters</button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW 3: STUDENT DASHBOARD -->
+    <section class="page-view" id="view-student-dashboard">
+      <div class="dashboard-container">
+        
+        <!-- Dashboard Top Banner -->
+        <div class="dashboard-banner">
+          <div class="banner-profile">
+            <div class="banner-avatar" id="studentBannerAvatar">RS</div>
+            <div class="banner-info">
+              <h2>Welcome back, <span id="studentBannerName">Rohan Sharma</span>! 🎓</h2>
+              <p id="studentBannerCollege">Delhi University • North Campus | Verified Student Account</p>
+            </div>
+          </div>
+          <div class="banner-actions">
+            <button class="btn btn-primary btn-sm" onclick="navigateTo('explore')">
+              <i class="fa-solid fa-magnifying-glass"></i> Browse More Stays
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="stats-overview-grid">
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-blue"><i class="fa-solid fa-calendar-check"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="statStudentTotalBookings">0</span>
+              <span class="stat-desc">Total Bookings</span>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-green"><i class="fa-solid fa-circle-check"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="statStudentActiveStays">0</span>
+              <span class="stat-desc">Active / Paid Stays</span>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-yellow"><i class="fa-solid fa-clock"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="statStudentPendingRequests">0</span>
+              <span class="stat-desc">Pending Move-Ins</span>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-red"><i class="fa-solid fa-heart"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="statStudentWishlist">0</span>
+              <span class="stat-desc">Saved Wishlist Stays</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Tabs Layout -->
+        <div class="dashboard-tabs-wrapper">
+          <div class="dash-tab-nav">
+            <button class="dash-tab-btn active" data-tab="bookings" onclick="switchStudentTab('bookings', this)">
+              <i class="fa-solid fa-book-bookmark"></i> My Bookings & Receipts
+            </button>
+            <button class="dash-tab-btn" data-tab="wishlist" onclick="switchStudentTab('wishlist', this)">
+              <i class="fa-solid fa-heart"></i> Wishlist
+            </button>
+            <button class="dash-tab-btn" data-tab="reviews" onclick="switchStudentTab('reviews', this)">
+              <i class="fa-solid fa-star"></i> My Reviews
+            </button>
+            <button class="dash-tab-btn" data-tab="notifications" onclick="switchStudentTab('notifications', this)">
+              <i class="fa-brands fa-whatsapp text-success"></i> WhatsApp & Email Alerts
+            </button>
+            <button class="dash-tab-btn" data-tab="profile" onclick="switchStudentTab('profile', this)">
+              <i class="fa-solid fa-user-gear"></i> Profile Settings
+            </button>
+          </div>
+
+          <div class="dash-tab-content">
+            
+            <!-- SUBTAB 1: My Bookings -->
+            <div class="dash-pane active" id="pane-student-bookings">
+              <div class="pane-header">
+                <h3>Current & Past Reservations</h3>
+                <span class="pane-hint">Real-time status synced with verified payment receipts</span>
+              </div>
+              <div class="bookings-list" id="studentBookingsList">
+                <!-- Bookings injected here -->
+              </div>
+            </div>
+
+            <!-- SUBTAB 2: Wishlist -->
+            <div class="dash-pane" id="pane-student-wishlist">
+              <div class="pane-header">
+                <h3>Saved Student Accommodations</h3>
+                <span class="pane-hint">Keep track of places you are interested in</span>
+              </div>
+              <div class="properties-grid" id="studentWishlistGrid">
+                <!-- Wishlist items injected here -->
+              </div>
+            </div>
+
+            <!-- SUBTAB 3: Reviews -->
+            <div class="dash-pane" id="pane-student-reviews">
+              <div class="pane-header">
+                <h3>Your Verified Stay Reviews</h3>
+                <span class="pane-hint">Help other college students make informed choices</span>
+              </div>
+              <div id="studentReviewsContainer">
+                <!-- Reviews injected here -->
+              </div>
+            </div>
+
+            <!-- SUBTAB 4: Notifications & Receipts -->
+            <div class="dash-pane" id="pane-student-notifications">
+              <div class="pane-header">
+                <h3>Booking Confirmations & Alerts</h3>
+                <span class="pane-hint">WhatsApp and Email dispatch record</span>
+              </div>
+              <div class="notif-activity-stream" id="studentNotificationsStream">
+                <!-- Notifications injected here -->
+              </div>
+            </div>
+
+            <!-- SUBTAB 5: Profile Settings -->
+            <div class="dash-pane" id="pane-student-profile">
+              <div class="pane-header">
+                <h3>Student Profile & College Information</h3>
+              </div>
+              <form class="profile-settings-form" onsubmit="handleUpdateStudentProfile(event)">
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label>Full Legal Name</label>
+                    <input type="text" id="profStudentName" value="Rohan Sharma" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="profStudentEmail" value="rohan.student@staynest.com" disabled>
+                  </div>
+                </div>
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label>Phone Number (WhatsApp verified)</label>
+                    <input type="tel" id="profStudentPhone" value="+91 98765 43210" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Enrolled College / University</label>
+                    <input type="text" id="profStudentCollege" value="Delhi University (Hansraj College)">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW 4: PROPERTY OWNER / HOST DASHBOARD -->
+    <section class="page-view" id="view-owner-dashboard">
+      <div class="dashboard-container">
+        
+        <!-- Host Banner -->
+        <div class="dashboard-banner host-banner">
+          <div class="banner-profile">
+            <div class="banner-avatar host-avatar" id="hostBannerAvatar">VM</div>
+            <div class="banner-info">
+              <h2>Host Dashboard – <span id="hostBannerName">Vikram Malhotra</span> 🏢</h2>
+              <p>Apex Luxury Residencies • Verified Host Partner</p>
+            </div>
+          </div>
+          <div class="banner-actions">
+            <button class="btn btn-primary" onclick="openAddPropertyModal()">
+              <i class="fa-solid fa-plus"></i> List New Property
+            </button>
+          </div>
+        </div>
+
+        <!-- Host Stat Overview -->
+        <div class="stats-overview-grid">
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-blue"><i class="fa-solid fa-building"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="statHostTotalProps">0</span>
+              <span class="stat-desc">Listed Properties</span>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-yellow"><i class="fa-solid fa-bell-concierge"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="statHostPendingRequests">0</span>
+              <span class="stat-desc">Pending Student Requests</span>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-green"><i class="fa-solid fa-bed"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="statHostActiveTenants">0</span>
+              <span class="stat-desc">Confirmed Bookings</span>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-accent"><i class="fa-solid fa-wallet"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="statHostRevenue">₹0</span>
+              <span class="stat-desc">Monthly Rent Value</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Host Tabs -->
+        <div class="dashboard-tabs-wrapper">
+          <div class="dash-tab-nav">
+            <button class="dash-tab-btn active" data-tab="requests" onclick="switchHostTab('requests', this)">
+              <i class="fa-solid fa-inbox"></i> Booking Requests (<span id="hostRequestsCount">0</span>)
+            </button>
+            <button class="dash-tab-btn" data-tab="properties" onclick="switchHostTab('properties', this)">
+              <i class="fa-solid fa-hotel"></i> Manage Properties
+            </button>
+            <button class="dash-tab-btn" data-tab="tenants" onclick="switchHostTab('tenants', this)">
+              <i class="fa-solid fa-users"></i> Confirmed Students
+            </button>
+          </div>
+
+          <div class="dash-tab-content">
+            
+            <!-- Host Requests Tab -->
+            <div class="dash-pane active" id="pane-host-requests">
+              <div class="pane-header">
+                <h3>Student Booking Applications</h3>
+                <span class="pane-hint">Review incoming paid student reservations. Approved bookings trigger instant WhatsApp and Email notifications.</span>
+              </div>
+              <div class="host-requests-list" id="hostRequestsList"></div>
+            </div>
+
+            <!-- Host Properties Tab -->
+            <div class="dash-pane" id="pane-host-properties">
+              <div class="pane-header-flex">
+                <div>
+                  <h3>My Accommodation Listings</h3>
+                  <span class="pane-hint">Manage room availability, rental prices, and descriptions</span>
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="openAddPropertyModal()">
+                  <i class="fa-solid fa-plus"></i> Add Room
+                </button>
+              </div>
+              <div class="host-properties-grid" id="hostPropertiesGrid"></div>
+            </div>
+
+            <!-- Host Confirmed Tenants -->
+            <div class="dash-pane" id="pane-host-tenants">
+              <div class="pane-header">
+                <h3>Current Student Occupants</h3>
+                <span class="pane-hint">Verified students currently staying or scheduled to move in</span>
+              </div>
+              <div class="tenants-table-wrapper" id="hostTenantsTableWrapper"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW 5: ADMINISTRATOR DASHBOARD -->
+    <section class="page-view" id="view-admin-dashboard">
+      <div class="dashboard-container">
+        
+        <div class="dashboard-banner admin-banner">
+          <div class="banner-profile">
+            <div class="banner-avatar admin-avatar">AD</div>
+            <div class="banner-info">
+              <h2>StayNest Global Admin Control Room 🛡️</h2>
+              <p>Platform Operations • Verification Pipeline • Audit Logs & Payment Records</p>
+            </div>
+          </div>
+          <div class="banner-actions">
+            <div class="admin-sys-status-badge">
+              <span class="status-dot-pulse"></span>
+              <span>All Systems Operational</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Platform Metrics -->
+        <div class="stats-overview-grid admin-stats-grid">
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-blue"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="adminStatUsers">0</span>
+              <span class="stat-desc">Registered Users</span>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-green"><i class="fa-solid fa-building"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="adminStatProps">0</span>
+              <span class="stat-desc">Total Properties</span>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-yellow"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="adminStatPendingApprovals">0</span>
+              <span class="stat-desc">Pending Approvals</span>
+            </div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="stat-icon bg-accent"><i class="fa-solid fa-receipt"></i></div>
+            <div class="stat-details">
+              <span class="stat-val" id="adminStatBookings">0</span>
+              <span class="stat-desc">Total Bookings</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tabs -->
+        <div class="dashboard-tabs-wrapper">
+          <div class="dash-tab-nav">
+            <button class="dash-tab-btn active" data-tab="approvals" onclick="switchAdminTab('approvals', this)">
+              <i class="fa-solid fa-clipboard-check"></i> Property Approvals
+            </button>
+            <button class="dash-tab-btn" data-tab="all-bookings" onclick="switchAdminTab('all-bookings', this)">
+              <i class="fa-solid fa-table-list"></i> Platform Bookings & Invoices
+            </button>
+            <button class="dash-tab-btn" data-tab="users" onclick="switchAdminTab('users', this)">
+              <i class="fa-solid fa-id-card"></i> User Accounts
+            </button>
+            <button class="dash-tab-btn" data-tab="gateway" onclick="switchAdminTab('gateway', this)">
+              <i class="fa-solid fa-server"></i> API Gateway & Payments
+            </button>
+          </div>
+
+          <div class="dash-tab-content">
+            
+            <!-- Admin Property Approvals -->
+            <div class="dash-pane active" id="pane-admin-approvals">
+              <div class="pane-header">
+                <h3>Host Property Approvals</h3>
+                <span class="pane-hint">Review pending accommodations submitted by property owners before they go live on StayNest</span>
+              </div>
+              <div id="adminApprovalsContainer"></div>
+            </div>
+
+            <!-- Admin All Bookings -->
+            <div class="dash-pane" id="pane-admin-all-bookings">
+              <div class="pane-header">
+                <h3>Platform-Wide Booking & Payment Audit</h3>
+                <span class="pane-hint">Real-time ledger of all student reservation transactions</span>
+              </div>
+              <div class="admin-table-responsive" id="adminBookingsTable"></div>
+            </div>
+
+            <!-- Admin Users Directory -->
+            <div class="dash-pane" id="pane-admin-users">
+              <div class="pane-header">
+                <h3>Student & Host User Directory</h3>
+              </div>
+              <div class="admin-table-responsive" id="adminUsersTable"></div>
+            </div>
+
+            <!-- Admin Gateway & Notifications -->
+            <div class="dash-pane" id="pane-admin-gateway">
+              <div class="pane-header">
+                <h3>WhatsApp Cloud API, Payments & Email Status</h3>
+                <span class="pane-hint">Direct diagnostic view of backend dispatch status and webhook receiver</span>
+              </div>
+              <div class="gateway-status-cards" id="gatewayStatusCards"></div>
+              <div class="pane-header mt-4">
+                <h4>Outbound Notification & Payment Dispatch Audit</h4>
+              </div>
+              <div class="admin-table-responsive" id="adminNotificationAudit"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MODALS & SLIDE-OUT DRAWERS ================= -->
+
+  <!-- 1. PROPERTY DETAILS MODAL (High-Fidelity Dedicated View with Interactive Gallery) -->
+  <div class="modal-backdrop hidden" id="propertyDetailsModal" onclick="handleBackdropClick(event, 'propertyDetailsModal')">
+    <div class="modal-dialog modal-large">
+      <button class="modal-close-btn" onclick="closeModal('propertyDetailsModal')">&times;</button>
+      <div class="property-detail-body" id="propertyDetailContent">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. COMPLETE MULTI-STEP BOOKING & REQUIRED PAYMENT GATEWAY MODAL -->
+  <div class="modal-backdrop hidden" id="bookingModal" onclick="handleBackdropClick(event, 'bookingModal')">
+    <div class="modal-dialog modal-booking">
+      <button class="modal-close-btn" onclick="closeModal('bookingModal')">&times;</button>
+      <div class="booking-modal-body" id="bookingModalBody">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. BOOKING RECEIPT & TAX INVOICE PRINTABLE MODAL -->
+  <div class="modal-backdrop hidden" id="receiptModal" onclick="handleBackdropClick(event, 'receiptModal')">
+    <div class="modal-dialog modal-receipt">
+      <button class="modal-close-btn" onclick="closeModal('receiptModal')">&times;</button>
+      <div class="receipt-modal-content" id="receiptModalContent">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. AUTHENTICATION MODAL (Login / Signup) -->
+  <div class="modal-backdrop hidden" id="authModal" onclick="handleBackdropClick(event, 'authModal')">
+    <div class="modal-dialog modal-auth">
+      <button class="modal-close-btn" onclick="closeModal('authModal')">&times;</button>
+      
+      <div class="auth-split-wrapper">
+        <!-- Left Side: Visual Brand Experience -->
+        <div class="auth-brand-side">
+          <div class="auth-brand-logo">
+            <i class="fa-solid fa-house-chimney-window"></i> StayNest
+          </div>
+          <div class="auth-brand-hero">
+            <h2>Find Your Space. Feel At Home.</h2>
+            <p>Join thousands of students finding verified PGs, hostels, and student rooms near top universities across India.</p>
+            <div class="auth-perks-list">
+              <div class="auth-perk-item">
+                <i class="fa-solid fa-circle-check"></i> Zero Brokerage Guaranteed
+              </div>
+              <div class="auth-perk-item">
+                <i class="fa-solid fa-circle-check"></i> Instant WhatsApp Confirmations
+              </div>
+              <div class="auth-perk-item">
+                <i class="fa-solid fa-circle-check"></i> Secure UPI & Card Payment Gateway
+              </div>
+              <div class="auth-perk-item">
+                <i class="fa-solid fa-circle-check"></i> 100% In-Person Verified Stays
+              </div>
+            </div>
+          </div>
+          <div class="auth-brand-footer">
+            <span>Trusted by students from DU, IIT, Christ & 60+ colleges.</span>
+          </div>
+        </div>
+
+        <!-- Right Side: Forms -->
+        <div class="auth-form-side">
+          
+          <div class="auth-tabs">
+            <button class="auth-tab active" id="tabLogin" onclick="switchAuthMode('login')">Sign In</button>
+            <button class="auth-tab" id="tabSignup" onclick="switchAuthMode('signup')">Create Account</button>
+          </div>
+
+          <!-- LOGIN FORM -->
+          <form class="auth-form" id="loginForm" onsubmit="handleAuthSubmit(event, 'login')">
+            <div class="form-group">
+              <label for="loginEmail">Email Address</label>
+              <div class="input-with-icon">
+                <i class="fa-regular fa-envelope"></i>
+                <input type="email" id="loginEmail" placeholder="student@example.com" value="rohan.student@staynest.com" required autocomplete="email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="label-row">
+                <label for="loginPassword">Password</label>
+                <a href="javascript:void(0)" class="forgot-link" onclick="handleForgotPassword()">Forgot password?</a>
+              </div>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="loginPassword" placeholder="••••••••" value="password123" required autocomplete="current-password">
+                <button type="button" class="pwd-toggle" onclick="togglePasswordVisibility('loginPassword', this)">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <label class="custom-checkbox">
+                <input type="checkbox" id="rememberMe" checked>
+                <span class="checkmark"></span>
+                <span>Remember me on this browser</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="loginSubmitBtn">
+              Sign In to StayNest
+            </button>
+          </form>
+
+          <!-- SIGNUP FORM -->
+          <form class="auth-form hidden" id="signupForm" onsubmit="handleAuthSubmit(event, 'signup')">
+            
+            <div class="form-group">
+              <label>I am joining as a:</label>
+              <div class="role-selector-pills">
+                <label class="role-radio">
+                  <input type="radio" name="signupRole" value="student" checked onchange="toggleSignupFields('student')">
+                  <span><i class="fa-solid fa-graduation-cap"></i> Student</span>
+                </label>
+                <label class="role-radio">
+                  <input type="radio" name="signupRole" value="owner" onchange="toggleSignupFields('owner')">
+                  <span><i class="fa-solid fa-building-user"></i> Property Owner / PG Host</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="signupName">Full Legal Name</label>
+              <div class="input-with-icon">
+                <i class="fa-regular fa-user"></i>
+                <input type="text" id="signupName" placeholder="e.g. Aarav Patel" required>
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="signupEmail">Email Address</label>
+                <div class="input-with-icon">
+                  <i class="fa-regular fa-envelope"></i>
+                  <input type="email" id="signupEmail" placeholder="aarav@college.edu" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="signupPhone">WhatsApp Number</label>
+                <div class="input-with-icon">
+                  <i class="fa-brands fa-whatsapp text-success"></i>
+                  <input type="tel" id="signupPhone" placeholder="+91 98765 43210" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Conditional Student College Field -->
+            <div class="form-group" id="signupCollegeGroup">
+              <label for="signupCollege">College / Institute Name</label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <input type="text" id="signupCollege" placeholder="e.g. Delhi University / Christ University">
+              </div>
+            </div>
+
+            <!-- Conditional Owner Business Field -->
+            <div class="form-group hidden" id="signupBusinessGroup">
+              <label for="signupBusiness">Hostel / PG Business Name</label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-building"></i>
+                <input type="text" id="signupBusiness" placeholder="e.g. Royal Residency Hostel">
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="signupPassword">Password</label>
+                <div class="input-with-icon">
+                  <i class="fa-solid fa-lock"></i>
+                  <input type="password" id="signupPassword" placeholder="Min 6 characters" minlength="6" required>
+                  <button type="button" class="pwd-toggle" onclick="togglePasswordVisibility('signupPassword', this)">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="signupConfirmPassword">Confirm Password</label>
+                <div class="input-with-icon">
+                  <i class="fa-solid fa-lock"></i>
+                  <input type="password" id="signupConfirmPassword" placeholder="Repeat password" minlength="6" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <label class="custom-checkbox">
+                <input type="checkbox" id="signupTerms" checked required>
+                <span class="checkmark"></span>
+                <span>I accept StayNest's <a href="javascript:void(0)" onclick="openPolicyModal('terms')">Terms of Service</a> & <a href="javascript:void(0)" onclick="openPolicyModal('privacy')">Privacy Policy</a></span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="signupSubmitBtn">
+              Create My Account
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 5. ADD / EDIT PROPERTY MODAL (For Property Hosts) -->
+  <div class="modal-backdrop hidden" id="addPropertyModal" onclick="handleBackdropClick(event, 'addPropertyModal')">
+    <div class="modal-dialog modal-large">
+      <button class="modal-close-btn" onclick="closeModal('addPropertyModal')">&times;</button>
+      <div class="add-prop-content">
+        <div class="modal-header">
+          <h2 id="propModalTitle"><i class="fa-solid fa-plus-circle text-primary"></i> List New Student Property</h2>
+          <p>Submit your student accommodation. New properties will be reviewed by administrators before going live.</p>
+        </div>
+
+        <form id="addPropertyForm" onsubmit="handleSaveProperty(event)">
+          <input type="hidden" id="editPropertyId" value="">
+          
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Property / Hostel Name *</label>
+              <input type="text" id="propName" placeholder="e.g. Green Valley Student Residency" required>
+            </div>
+            <div class="form-group">
+              <label>Category *</label>
+              <select id="propCategory" required>
+                <option value="Hostel">Hostel</option>
+                <option value="PG">Paying Guest (PG)</option>
+                <option value="Shared">Shared Room</option>
+                <option value="Private">Private Room</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Villa">Student Villa</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label>Monthly Rent (₹) *</label>
+              <input type="number" id="propPrice" placeholder="e.g. 9500" min="2000" required>
+            </div>
+            <div class="form-group">
+              <label>Security Deposit (₹)</label>
+              <input type="number" id="propDeposit" placeholder="e.g. 9500" min="0">
+            </div>
+            <div class="form-group">
+              <label>Available Beds / Rooms *</label>
+              <input type="number" id="propAvailableRooms" placeholder="e.g. 4" min="1" required>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>City & Locality *</label>
+              <input type="text" id="propLocation" placeholder="e.g. North Campus, Delhi" required>
+            </div>
+            <div class="form-group">
+              <label>Nearest Major College *</label>
+              <input type="text" id="propCollege" placeholder="e.g. Delhi University (0.5 km)" required>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Gender Policy *</label>
+              <select id="propGender" required>
+                <option value="Co-ed / Unisex">Co-ed / Unisex</option>
+                <option value="Girls Only">Girls Only</option>
+                <option value="Boys Only">Boys Only</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Room Sharing Type *</label>
+              <select id="propRoomType" required>
+                <option value="Single Private Room">Single Private Room</option>
+                <option value="Double Sharing">Double Sharing</option>
+                <option value="Triple Sharing">Triple Sharing</option>
+                <option value="Entire Student Flat">Entire Student Flat</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Image URLs (comma separated or enter 1 per line) *</label>
+            <textarea id="propImages" rows="3" placeholder="https://images.unsplash.com/photo-1555854877-bab0e564b8d5, https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af" required></textarea>
+            <span class="field-hint">High quality photos of bedroom, study pods, washroom, and dining hall.</span>
+          </div>
+
+          <div class="form-group">
+            <label>Detailed Property Description</label>
+            <textarea id="propDescription" rows="3" placeholder="Describe the atmosphere, curfew times, study environment, and mess schedule..." required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Included Amenities</label>
+            <div class="checkbox-grid-3">
+              <label class="custom-checkbox"><input type="checkbox" value="AC" id="hostAmenityAC"><span class="checkmark"></span> AC</label>
+              <label class="custom-checkbox"><input type="checkbox" value="Food" id="hostAmenityFood" checked><span class="checkmark"></span> 3 Meals / Mess</label>
+              <label class="custom-checkbox"><input type="checkbox" value="WiFi" id="hostAmenityWifi" checked><span class="checkmark"></span> High Speed Wi-Fi</label>
+              <label class="custom-checkbox"><input type="checkbox" value="Attached Bath" id="hostAmenityBath" checked><span class="checkmark"></span> Attached Washroom</label>
+              <label class="custom-checkbox"><input type="checkbox" value="Laundry" id="hostAmenityLaundry"><span class="checkmark"></span> Laundry Service</label>
+              <label class="custom-checkbox"><input type="checkbox" value="Power Backup" id="hostAmenityBackup"><span class="checkmark"></span> Power Backup</label>
+              <label class="custom-checkbox"><input type="checkbox" value="CCTV" id="hostAmenityCCTV" checked><span class="checkmark"></span> CCTV & Security</label>
+              <label class="custom-checkbox"><input type="checkbox" value="Study Desk" id="hostAmenityDesk" checked><span class="checkmark"></span> Study Desk & Chair</label>
+              <label class="custom-checkbox"><input type="checkbox" value="Water Purifier" id="hostAmenityRO" checked><span class="checkmark"></span> RO Drinking Water</label>
+            </div>
+          </div>
+
+          <div class="modal-footer-actions">
+            <button type="button" class="btn btn-outline" onclick="closeModal('addPropertyModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="savePropertySubmitBtn">Submit for Review</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. NOTIFICATION DRAWER / WHATSAPP & EMAIL INSPECTOR -->
+  <div class="modal-backdrop hidden" id="notificationDrawer" onclick="handleBackdropClick(event, 'notificationDrawer')">
+    <div class="slide-out-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <i class="fa-brands fa-whatsapp text-success"></i>
+          <h3>StayNest Alert & Message Log</h3>
+        </div>
+        <button class="drawer-close-btn" onclick="closeNotificationDrawer()">&times;</button>
+      </div>
+      
+      <div class="drawer-body">
+        
+        <div class="notification-tabs">
+          <button class="notif-tab active" data-view="whatsapp" onclick="switchNotifView('whatsapp', this)">
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp Payloads
+          </button>
+          <button class="notif-tab" data-view="email" onclick="switchNotifView('email', this)">
+            <i class="fa-regular fa-envelope"></i> Email Invoices
+          </button>
+          <button class="notif-tab" data-view="system" onclick="switchNotifView('system', this)">
+            <i class="fa-solid fa-server"></i> API Gateway Health
+          </button>
+        </div>
+
+        <div id="notifViewContent">
+          <!-- Dynamically injected notification bubbles & email previews -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. WISHLIST SLIDE-OUT DRAWER -->
+  <div class="modal-backdrop hidden" id="wishlistDrawer" onclick="handleBackdropClick(event, 'wishlistDrawer')">
+    <div class="slide-out-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <i class="fa-solid fa-heart text-danger"></i>
+          <h3>Saved Student Stays (<span id="drawerWishlistCount">0</span>)</h3>
+        </div>
+        <button class="drawer-close-btn" onclick="closeWishlistDrawer()">&times;</button>
+      </div>
+      <div class="drawer-body">
+        <div class="drawer-wishlist-list" id="drawerWishlistList">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. WRITE A REVIEW MODAL -->
+  <div class="modal-backdrop hidden" id="writeReviewModal" onclick="handleBackdropClick(event, 'writeReviewModal')">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" onclick="closeModal('writeReviewModal')">&times;</button>
+      <div class="review-modal-content">
+        <div class="modal-header">
+          <h2><i class="fa-solid fa-star text-warning"></i> Write a Verified Stay Review</h2>
+          <p id="reviewPropTargetName">Share your experience with future college students.</p>
+        </div>
+        <form onsubmit="handleSubmitReview(event)">
+          <input type="hidden" id="reviewPropertyId" value="">
+          <input type="hidden" id="reviewBookingId" value="">
+          
+          <div class="form-group text-center">
+            <label>Overall Experience</label>
+            <div class="star-rating-input" id="starRatingInput">
+              <i class="fa-solid fa-star star-btn" data-value="1" onclick="setRatingValue(1)"></i>
+              <i class="fa-solid fa-star star-btn" data-value="2" onclick="setRatingValue(2)"></i>
+              <i class="fa-solid fa-star star-btn" data-value="3" onclick="setRatingValue(3)"></i>
+              <i class="fa-solid fa-star star-btn" data-value="4" onclick="setRatingValue(4)"></i>
+              <i class="fa-solid fa-star star-btn active" data-value="5" onclick="setRatingValue(5)"></i>
+            </div>
+            <input type="hidden" id="selectedStarValue" value="5">
+          </div>
+
+          <div class="form-group">
+            <label>Review Title</label>
+            <input type="text" id="reviewTitle" placeholder="e.g. Great Wi-Fi and healthy food near campus!" required>
+          </div>
+
+          <div class="form-group">
+            <label>Detailed Comments</label>
+            <textarea id="reviewComment" rows="4" placeholder="Mention cleanliness, food quality, owner helpfulness, and safety..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Publish Review</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. LEGAL & POLICY MODALS -->
+  <div class="modal-backdrop hidden" id="policyModal" onclick="handleBackdropClick(event, 'policyModal')">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" onclick="closeModal('policyModal')">&times;</button>
+      <div class="policy-modal-content" id="policyModalContent">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- MOBILE BOTTOM NAVIGATION (Smartphones) -->
+  <nav class="mobile-bottom-bar" id="mobileBottomBar">
+    <button class="bottom-nav-item active" data-view="home" onclick="navigateTo('home')">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </button>
+    <button class="bottom-nav-item" data-view="explore" onclick="navigateTo('explore')">
+      <i class="fa-solid fa-compass"></i>
+      <span>Explore</span>
+    </button>
+    <button class="bottom-nav-item" onclick="openWishlistDrawer()">
+      <i class="fa-solid fa-heart"></i>
+      <span>Saved</span>
+    </button>
+    <button class="bottom-nav-item" onclick="handleMobileDashboardClick()">
+      <i class="fa-solid fa-calendar-check"></i>
+      <span>Bookings</span>
+    </button>
+    <button class="bottom-nav-item" onclick="handleMobileProfileClick()">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </button>
+  </nav>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <div class="footer-brand-col">
+        <div class="brand-logo footer-logo">
+          <div class="logo-icon-wrapper">
+            <i class="fa-solid fa-house-chimney-window"></i>
+          </div>
+          <div class="logo-text">
+            <span class="logo-name">StayNest</span>
+          </div>
+        </div>
+        <p class="footer-tagline">Find Your Space. Feel At Home.</p>
+        <p class="footer-desc">
+          India's leading student accommodation network. Connecting scholars with verified, safe, and modern living spaces near their colleges with zero brokerage.
+        </p>
+        <div class="footer-social-links">
+          <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Popular University Hubs</h4>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="quickSearchCampus('Delhi University')">Delhi University (DU)</a></li>
+          <li><a href="javascript:void(0)" onclick="quickSearchCampus('IIT')">IITs (Bombay / Delhi)</a></li>
+          <li><a href="javascript:void(0)" onclick="quickSearchCampus('Christ University')">Christ University Bangalore</a></li>
+          <li><a href="javascript:void(0)" onclick="quickSearchCampus('Symbiosis')">Symbiosis Pune</a></li>
+          <li><a href="javascript:void(0)" onclick="quickSearchCampus('Kota')">Kota Coaching Hub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Accommodation Types</h4>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="filterByCategoryFromFooter('Hostel')">Student Hostels</a></li>
+          <li><a href="javascript:void(0)" onclick="filterByCategoryFromFooter('PG')">Paying Guest (PG)</a></li>
+          <li><a href="javascript:void(0)" onclick="filterByCategoryFromFooter('Shared')">Shared Twin Rooms</a></li>
+          <li><a href="javascript:void(0)" onclick="filterByCategoryFromFooter('Private')">Single Private Rooms</a></li>
+          <li><a href="javascript:void(0)" onclick="filterByCategoryFromFooter('Apartment')">Independent Flats</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Trust & Payment Security</h4>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="openPolicyModal('terms')">Terms & Conditions</a></li>
+          <li><a href="javascript:void(0)" onclick="openPolicyModal('privacy')">Privacy Policy</a></li>
+          <li><a href="javascript:void(0)" onclick="openPolicyModal('cancellation')">Cancellation & Refund Policy</a></li>
+          <li><a href="javascript:void(0)" onclick="openPolicyModal('faq')">Student FAQ & Help</a></li>
+          <li><a href="https://wa.me/919876543210" target="_blank"><i class="fa-brands fa-whatsapp text-success"></i> WhatsApp Support</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <p>© 2026 StayNest Technologies Inc. All rights reserved. Made with ❤️ for Indian Students.</p>
+        <p class="system-status-indicator">
+          <span class="status-dot"></span> 256-bit Encrypted Payment Gateway • WhatsApp Cloud API Active
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase & Client Configuration Scripts -->
+  <script src="firebase-config.js"></script>
+
+  <!-- Main Pure Vanilla JavaScript Application Core -->
+  <script src="script.js"></script>
+</body>
+</html>
